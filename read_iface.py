@@ -67,7 +67,7 @@ server = smtplib.SMTP("smtp.gmail.com", 587)
 server.starttls()
 server.login('<email account>','<email password')
 server.sendmail('<email account>',
-                '<cell number>@<carrier's sms gateway>',
+                '<cell number>@<sms gateway>',
                 result)
 server.quit()
 sys.exit(0)
