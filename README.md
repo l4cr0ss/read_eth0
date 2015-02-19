@@ -2,7 +2,7 @@
 A short python script that sends a text message to a cellphone with the inet4 address assigned to an interface.
 
 ### What you need
-A Linux/Unix machine with python v2.7 and the ifcfg tool
+A Linux/Unix machine with `python v2.7` and the `ifconfig` tool
 
 ### How it works
 This script works by sending a string via STMP to a cell phone carrier's SMS gateway. Set it up by 
