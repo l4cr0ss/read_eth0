@@ -18,6 +18,19 @@ import datetime
 import subprocess
 
 '''
+Function to load the config
+'''
+def get_config():
+  vars = {}
+  f = open('.config', 'r')
+  for line in f:
+    t = line.split('=')
+    vars[t[0]] = t[1].rstrip()
+  print "loaded config"
+  print vars
+  return vars
+    
+'''
 Function to get the inet4 addr assigned to iface
 '''
 def get_iface_addr(name='eth0'):
@@ -61,13 +74,18 @@ else:
   result = result + str_failure.format(cur_time)
 
 '''
+Load the config from disk
+'''
+conf = get_config()
+
+'''
 Send the string via SMS to my telephone
 '''
 server = smtplib.SMTP("smtp.gmail.com", 587)
 server.starttls()
-server.login('<email account>','<email password')
-server.sendmail('<email account>',
-                '<cell number>@<sms gateway>',
+server.login(conf['email'],conf['pass'])
+server.sendmail(conf['email'],
+                conf['conn'],
                 result)
 server.quit()
 sys.exit(0)
