@@ -40,7 +40,7 @@ def get_iface_addr(name='eth0'):
   # look for iface in the output. once you find it grab the addr
   found = 0
   iface = ''
-  for line in output:
+  for line in op:
     if name in line:
       if inet in line:
         found = 1
