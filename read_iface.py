@@ -27,7 +27,6 @@ def get_config():
     t = line.split('=')
     vars[t[0]] = t[1].rstrip()
   print "loaded config"
-  print vars
   return vars
     
 '''
@@ -36,6 +35,9 @@ Function to get the inet4 addr assigned to iface
 def get_iface_addr(name='eth0'):
   # grab the output of ip addr and parse it into lines
   op = subprocess.check_output(["ip", "addr"]).split('\n')
+  print "output of ip:"
+  for line in op:
+    print line
 
   # look for iface in the output. once you find it grab the addr
   found = 0
@@ -43,15 +45,12 @@ def get_iface_addr(name='eth0'):
   for line in op:
     if name in line:
       if 'inet' in line:
-        found = 1
-        continue
-
-    if found:
-      l = line.strip()
-      p = l.rfind('inet') + 5
-      s = l.find('/')
-      iface = l[p:s]
-      break
+        l = line.strip()
+        p = l.rfind('inet') + 5
+        s = l.find('/')
+        iface = l[p:s]
+        print 'found iface: {0}'.format(iface) 
+        break
 
   return iface
 
