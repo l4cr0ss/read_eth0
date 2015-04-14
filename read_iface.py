@@ -14,7 +14,7 @@ from email.mime.text import MIMEText
 import time
 import datetime
 
-# Library for running ifconfig via the shell
+# Library for running ip via the shell
 import subprocess
 
 '''
@@ -34,21 +34,23 @@ def get_config():
 Function to get the inet4 addr assigned to iface
 '''
 def get_iface_addr(name='eth0'):
-  # grab the output of ifconfig and parse it into lines
-  output = subprocess.check_output("ifconfig").split('\n')
+  # grab the output of ip addr and parse it into lines
+  op = subprocess.check_output(["ip", "addr"]).split('\n')
 
   # look for iface in the output. once you find it grab the addr
   found = 0
   iface = ''
   for line in output:
     if name in line:
-      found = 1
-      continue
+      if inet in line:
+        found = 1
+        continue
 
     if found:
-      pfx_end = line.find(':') + 1
-      sfx_beg = line.find(' ', 19)
-      iface = line[pfx_end:sfx_beg]
+      l = line.strip()
+      p = l.rfind('inet') + 5
+      s = l.find('/')
+      iface = l[p:s]
       break
 
   return iface
