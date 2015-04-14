@@ -42,7 +42,7 @@ def get_iface_addr(name='eth0'):
   iface = ''
   for line in op:
     if name in line:
-      if inet in line:
+      if 'inet' in line:
         found = 1
         continue
 
